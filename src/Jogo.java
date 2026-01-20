@@ -36,7 +36,7 @@ public class Jogo {
     public void imprimirTabuleiro(){
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
-                System.out.println(this.getTabuleiro().getMatrizSudoku()[i][j] + " ");
+                System.out.print(this.getTabuleiro().getMatrizSudoku()[i][j] + " ");
             }
             System.out.println();
         }
@@ -47,9 +47,12 @@ public class Jogo {
     }
 
     public boolean cheio(){
-        if(Arrays.stream(this.tabuleiro.getMatrizSudoku()).count() == this.tabuleiro.getMatrizSudoku().length)
-            return true;
-        else
-            return false;
+        for(int i = 0; i < this.tabuleiro.getMatrizSudoku().length; i++){
+            for(int j = 0; j < this.tabuleiro.getMatrizSudoku().length; j++){
+                if(this.tabuleiro.getMatrizSudoku()[i][j] == null)
+                    return false;
+            }
+        }
+        return true;
     }
 }

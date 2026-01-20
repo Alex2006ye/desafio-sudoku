@@ -1,8 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -17,17 +15,17 @@ public class Main {
                 Tabuleiro tabuleiro = new Tabuleiro();
                 Jogo jogo = new Jogo(tabuleiro);
                 Random random = new Random();
-                jogo.getTabuleiro().gerarNumeros(random.nextInt(1,10));
+                jogo.getTabuleiro().gerarNumeros(random.nextInt(1,9));
                 jogo.iniciarJogo();
                 int auxiliar = 0, linha = 0, coluna = 0, valor = 0;
 
-                while(auxiliar != 3){
+                while(jogo.getStatus() != Situacao.COMPLETO){
                     System.out.println("Agora que o jogo começou, escolha uma das opções abaixo");
-                    System.out.println("1-Adicionar um Número no Tabuleiro \n 2- Remover um dos números adicionados \n 3- Sair \n 4- Verificar tabuleiro atual");
+                    System.out.println(" 1-Adicionar um Número no Tabuleiro \n 2- Remover um dos números adicionados \n 3- Sair \n 4- Verificar tabuleiro atual");
                     auxiliar = scanner.nextInt();
 
                     if(auxiliar == 3){
-                        System.out.println("Tudo bem! Vamos sair, volte quando quiser");
+                        jogo.finalizarJogo();
                     }
                     if(auxiliar == 4){
                         jogo.imprimirTabuleiro();
@@ -41,9 +39,18 @@ public class Main {
                             System.out.println("Digite a posição vertical onde você quer colocar o valor");
                             coluna = scanner.nextInt();
 
-                            if(jogo.getTabuleiro().getMatrizSudoku()[linha][coluna] == null){
-                                System.out.println("Digite um valor para colocar no tabuleiro: ");
-                                valor = scanner.nextInt();
+                            System.out.println("Digite um valor para colocar no tabuleiro: ");
+                            valor = scanner.nextInt();
+
+                            int contExiste = 0;
+
+                            for(int i = 0; i < 9; i++){
+                                for(int j = 0; j < 9; j++){
+                                    if(jogo.getTabuleiro().getMatrizSudoku()[linha][j] == valor || jogo.getTabuleiro().getMatrizSudoku()[i][coluna] == valor)
+                                        contExiste++;
+                                }
+                            }
+                            if(contExiste <= 0){
                                 jogo.inserir(linha, coluna, valor);
                                 cont++;
                             }
