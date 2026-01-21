@@ -4,6 +4,7 @@ public class Jogo {
     private Tabuleiro tabuleiro;
     private Situacao status;
 
+
     public Jogo(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
         this.status = Situacao.NAO_INICIADO;
@@ -44,6 +45,17 @@ public class Jogo {
 
     public void inserir(int linha, int coluna, int valor){
         this.tabuleiro.setMatrizSudoku(linha, coluna, valor);
+    }
+
+    public void remover(int linha, int coluna){
+        Integer[][] matrizCopia = new Integer[9][9];
+        for(int i = 0; i < this.tabuleiro.getMatrizSudoku().length; i++){
+            for(int j = 0; j < this.tabuleiro.getMatrizSudoku().length; j++){
+                if(i != linha || j != coluna)
+                    matrizCopia[i][j] = this.tabuleiro.getMatrizSudoku()[i][j];
+            }
+        }
+        this.tabuleiro.inserirCopia(matrizCopia);
     }
 
     public boolean cheio(){

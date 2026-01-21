@@ -50,10 +50,46 @@ public class Main {
                                         contExiste++;
                                 }
                             }
+
+                            //basicamente, com esse cálculo, ele cai na linha certinha para definir o inicio do quadrado
+                            int inicioLinha = (linha/3) * 3;
+                            int inicioColuna = (coluna/3) * 3;
+
+                            //validação para ver se, o valor existe dentro do quadrado
+                            for(int i = inicioLinha; i < inicioLinha + 3; i++){
+                                for(int j = inicioColuna; j < inicioColuna + 3; j++){
+                                    if(jogo.getTabuleiro().getMatrizSudoku()[i][j] == valor)
+                                        contExiste++;
+                                }
+                            }
+
                             if(contExiste <= 0){
                                 jogo.inserir(linha, coluna, valor);
                                 cont++;
                             }
+                        }
+                    }
+                    if(auxiliar == 2){
+                        System.out.println("Digite a posição horizontal onde você quer remover o valor");
+                        linha = scanner.nextInt();
+
+                        System.out.println("Digite a posição vertical onde você quer remover o valor");
+                        coluna = scanner.nextInt();
+
+                        int auxiliarzin = 0, contador = 0;
+
+                        while(auxiliarzin != jogo.getTabuleiro().getLinhasNaoRemoviveis().length) {
+                            if(linha == jogo.getTabuleiro().getLinhasNaoRemoviveis()[auxiliarzin] && coluna == jogo.getTabuleiro().getColunasNaoRemoviveis()[auxiliarzin]){
+                                contador++;
+                            }
+                        }
+
+                        if(contador > 0){
+                            System.out.println("Não é possível remover esse número, tente outro");
+                        }
+
+                        else{
+                            jogo.remover(linha, coluna);
                         }
                     }
                 }
