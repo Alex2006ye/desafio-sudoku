@@ -42,6 +42,11 @@ public class Main {
                             System.out.println("Digite um valor para colocar no tabuleiro: ");
                             valor = scanner.nextInt();
 
+                            if(linha < 0 || coluna > 8 || valor > 9 || linha > 8 || coluna < 0 || valor < 1){
+                                System.out.println("Digite corretamente os valores!!");
+                                continue;
+                            }
+
                             int contExiste = 0;
 
                             for(int i = 0; i < 9; i++){
@@ -76,12 +81,18 @@ public class Main {
                         System.out.println("Digite a posição vertical onde você quer remover o valor");
                         coluna = scanner.nextInt();
 
+                        if(linha < 0 || coluna > 8 || linha > 8 || coluna < 0){
+                            System.out.println("Digite corretamente os valores!!");
+                            continue;
+                        }
+
                         int auxiliarzin = 0, contador = 0;
 
                         while(auxiliarzin != jogo.getTabuleiro().getLinhasNaoRemoviveis().length) {
                             if(linha == jogo.getTabuleiro().getLinhasNaoRemoviveis()[auxiliarzin] && coluna == jogo.getTabuleiro().getColunasNaoRemoviveis()[auxiliarzin]){
                                 contador++;
                             }
+                            auxiliarzin++;
                         }
 
                         if(contador > 0){
@@ -93,6 +104,7 @@ public class Main {
                         }
                     }
                 }
+                break;
             case 2:
                 System.exit(0);
             default:
